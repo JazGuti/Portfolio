@@ -1,0 +1,24 @@
+<looking for duplicates>
+SELECT
+title,
+description, release_year, rental_duration, rental_rate, length, replacement_cost, rating, last_update, special_features, fulltext
+FROM film
+GROUP BY
+title,
+description, release_year, rental_duration, rental_rate, length, replacement_cost, rating, last_update, special_features, fulltext
+HAVING COUNT(*)>1
+
+SELECT
+first_name,
+last_name,
+email,
+address_id,
+activebool, create_date, last_update,
+active
+FROM customer GROUP BY customer_id, store_id,
+first_name, last_name,
+email,
+address_id, activebool, create_date, last_update,
+active
+HAVING COUNT(*)>1
+
