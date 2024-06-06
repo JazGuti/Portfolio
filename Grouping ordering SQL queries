@@ -1,0 +1,12 @@
+ordering 
+
+SELECT *
+FROM film
+ORDER BY title ASC, 
+Release_year DESC, 
+Rental_rate DESC
+
+SELECT rating,
+MIN(rental_duration) AS min_duration, 
+MAX(rental_duration) AS max_duration, 
+GROUP BY rating
