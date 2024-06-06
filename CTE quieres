@@ -1,0 +1,12 @@
+Common CTE SQL queries
+INSERT INTO category (name) VALUES('thriller'),
+('crime'),
+('mystery'), ('romance'), ('war')
+
+CREATE TABLE category
+(
+category_id integer NOT NULL DEFAULT nextval('category_category_id_seq'::regclass),
+name text COLLATE pg_catalog."default" NOT NULL,
+last_update timestamp with time zone NOT NULL DEFAULT now(), CONSTRAINT category_pkey PRIMARY KEY (category_id)
+);
+
