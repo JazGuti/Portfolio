@@ -1,0 +1,52 @@
+EXPLANATION: Inner Join table was chosen because matching values in the joined column connects the 4 tables A. Customer, B. Address, C. City and D. Country which are either foreign key or primary key. We are trying to extract data from 4 separate tables to find the number of
+customers of the top 10 countries with the most customers. 
+First, we need to select the count of customer_id and also select the country. Then we need to Join the four tables with the common columns. The customer table has address_id column in common with address table.
+
+Query
+SELECT D.country,
+COUNT(customer_id) AS number_customers FROM customer A
+INNER JOIN address B ON A.address_id = B.address_id INNER JOIN city C ON B.city_id = C.city_id
+INNER JOIN country D ON C.country_id = D.country_id GROUP BY country
+ORDER BY number_customers DESC LIMIT 10
+
+EXPLANATION: Inner Join table was chosen because matching values in the joined column connects the 4 tables A. Customer, B. Address, C. City and D. Country which are either foreign key or primary key.
+We are trying to extract data from 4 separate tables to find the number of customers of the top 10 countries having the Cities in those countries with the most customers. First, we need to select the count of 
+customer_id, country, and city. Then we need to Join the four tables with the common columns. The customer table has address_id column in common with address table. 
+The address table has column city_id in common with city table. The city table has column country_id in common with Country table. Finally we need to group by country and add a condition to sort each country
+having the city with the most customers and order them with largest amount of customers to least and limit to 10.
+
+Query 
+SELECT D.country,
+C.city,
+COUNT(customer_id) AS number_customers
+FROM customer A
+INNER JOIN address B ON A.address_id = B.address_id INNER JOIN city C ON B.city_id = C.city_id
+INNER JOIN country D ON C.country_id = D.country_id
+WHERE D.country IN ('India', 'China', 'United States', 'Japan', 'Mexico', 'Brazil',
+'Russian Federation', 'Philippines', 'Turkey', 'Indonesia')
+GROUP BY country,
+city
+ORDER BY number_customers DESC LIMIT 10
+
+Inner Join table was chosen because matching values in the joined column connects the 5 tables A. Customer, B. Address, C. City, D. Country and E.payment which are either foreign key or primary key.
+We are trying to extract data from 5 separate tables to find the top 5 paying customers located in the top 5 cities.
+First, we need to select the colums customer_id, country, first_name, last_name, city and total amount paid. Then we need to Join the 5 tables with the common columns. 
+The customer table has address_id column in common with address table. The address table has column city_id in common with city table. The city table has column country_id in common with Country table. 
+And the customer table has customer_id column in common with the payment table. Next step we need to condition the columns where the top
+10 cities have top customer paying. Finally we need to group by customer_id, first_name, last_name, city, country and Order by total_amount_paid and limit 5.
+
+Query
+SELECT A.customer_id, A.first_name, A.last_name,
+C.city,
+D.country,
+Sum(E.amount) AS total_amount_paid
+From customer A
+INNER JOIN address B ON A.address_id = B.address_id
+INNER JOIN city C ON B.city_id = C.city_id
+INNER JOIN country D ON C.country_id = D.country_id
+INNER JOIN payment E ON A.customer_id = E.customer_id
+WHERE C.city IN ('Aurora', 'So Leopoldo', 'Tianjin', 'Shanwei', 'Citrus Heights', 'Teboksary', 'Iwaki', 'Ambattur', 'Cianjur', 'Acua')
+GROUP BY A.customer_id, A.first_name, A.last_name,
+C.city,
+D.country
+ORDER BY total_amount_paid DESC LIMIT 5
